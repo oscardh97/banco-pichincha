@@ -1,10 +1,10 @@
 import Dropdown from "../Dropdown/Dropdown";
 import StyledTable from "./TableStyle";
-import { useSelector } from "react-redux";
 
 function Table({
   headers = [],
   data = [],
+  actions = [],
 }) {
   // TODO: Move Headers y Body to different component
   // TODO: Add Info icon
@@ -26,24 +26,26 @@ function Table({
 
   const parseRowData = (header, item) => {
     // TODO: move this to an util function
-    const value = header.type === "date" ? `${item[header.key].getDate()}/${item[header.key].getMonth() + 1}/${item[header.key].getFullYear()}` :
-    header.type === "image" ? <img alt="logo" src={item[header.key]} /> :
-    item[header.key];
+    let value = item[header.key];
+    if (header.type === "date") {
+      value = new Date(value);
+      value = `${value.getDate()}/${value.getMonth() + 1}/${value.getFullYear()}`;
+    } else if (header.type === "image") {
+      value = <img alt="logo" src={item[header.key]} />;
+    }
+
     return <td key={`${header.key}-${item.id}`}>{value}</td>;
   };
 
-  const ActionsDropdown = ({ id }) => {
-    const options= [{
-      text: "Editar",
-      onClick: () => console.log(`@Editing... ${id}`)
-    }, {
-      text: "Eliminar",
-      onClick: () => console.log(`@Deleting... ${id}`)
-    }];
-
+  const ActionsDropdown = ({ item }) => {
     return <Dropdown
       className="table-actions"
-      options={options}
+      options={actions.map(action => {
+        return {
+          ...action,
+          onClick: () => action.onClick(item),
+        }
+      })}
       showArrow={false}>
         <span>&#8942;</span>
       </Dropdown>;
@@ -51,18 +53,16 @@ function Table({
 
   const renderData = () => {
     return <tbody>
-      <tr>
-        {data.map(item => {
-          const jsxData = headers.map((header) => (
-            parseRowData(header, item)
-          ));
-          jsxData.push(<td key={`actions-${item.id}`} className="actions-column">
-            {<ActionsDropdown id={item.id}/>}
-          </td>)
+      {data.map(item => {
+        const jsxData = headers.map((header) => (
+          parseRowData(header, item)
+        ));
+        jsxData.push(<td key={`actions-${item.id}`} className="actions-column">
+          {<ActionsDropdown item={item}/>}
+        </td>)
 
-          return jsxData;
-        })}
-      </tr>
+        return <tr>{jsxData}</tr>;
+      })}
     </tbody>
   };
 

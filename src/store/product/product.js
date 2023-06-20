@@ -1,26 +1,51 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getProducts } from "./actions/list";
 
 const initialState = {
-  allProducts: [],
+  list: [],
+  listUsersStatus: {
+    loading: false,
+    success: false,
+    error: "",
+  },
+  selectedProduct: {
+    id: "",
+    name: "",
+    logo: "",
+    description: "",
+    date_release: "",
+    date_revision: "",
+  },
 };
-
-//TODO: Remove, it's just for testing
-const today = new Date();
 
 const productSlice = createSlice({
   name: "product",
   initialState,
   reducers: {
-    getProducts(state) {
-      state.allProducts = [{
-        id: "test",
-        name: "Test",
-        description: "My Description",
-        date_release: today,
-        date_revision: new Date((new Date()).setFullYear(today.getFullYear() + 1)),
-      }];
+    resetSelectedProduct: (state) => {
+      state.selectedProduct = initialState.selectedProduct;
     },
-    extraReducers: {}
+    setSelectedProduct: (state, action) => {
+      state.selectedProduct = action.payload;
+    },
+    handleInputChange: (state, action) => {
+      state.selectedProduct[action.payload.name] = action.payload.value;
+    }
+  },
+  extraReducers: {
+    [getProducts.pending]: (state) => {
+      state.loading = true;
+    },
+    [getProducts.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.success = true;
+      state.list = payload;
+    },
+    [getProducts.rejected]: (state, { payload }) => {
+      state.loading = false;
+      state.success = false;
+      state.errorMessage = payload
+    }
   },
 });
 

@@ -1,9 +1,14 @@
-import Button from "../../components/Button/Button";
+import { useDispatch, useSelector } from "react-redux";
+import Button from "../../components/Button";
 import Dropdown from "../../components/Dropdown/Dropdown";
 import Input from "../../components/Input/Input";
 import Layout from "../../components/Layout/Layout";
 import Table from "../../components/Table/Table";
 import StyledHomePage from "./HomePageStyle";
+import { useEffect } from "react";
+import { getProducts } from "../../store/product/actions/list";
+import { useNavigate } from "react-router-dom";
+import productSlice from "../../store/product/product";
 
 //TODO: Mock Data just for testing...
 const HEADERS = [{
@@ -44,13 +49,34 @@ const OPTIONS = [{
 }];
 
 const HomePage = () => {
+  const navigate = useNavigate();
+  const productState = useSelector(state => state.product);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProducts());
+  }, []);
+
+  const handleOnAddClick = () => navigate("/producto");
+
+  const actions= [{
+    text: "Editar",
+    onClick: (item) => {
+      dispatch(productSlice.actions.setSelectedProduct(item))
+      navigate(`/producto/${item.id}`);
+    }
+  }, {
+    text: "Eliminar",
+    onClick: (item) => console.log(`@Deleting... ${item.id}`)
+  }];
+
   return (
     <Layout>
       <StyledHomePage>
         <Input placeholder="Search..." />
-        <Button className="add-btn" text="Agregar" />
-        <Table headers={HEADERS} data={DATA}/>
-        <span>{OPTIONS.length} resultados</span>
+        <Button className="add-btn" text="Agregar" onClick={handleOnAddClick} />
+        <Table headers={HEADERS} data={productState.list} actions={actions}/>
+        <span>{productState.list.length} resultados</span>
         <Dropdown className="page-selector" text="1" options={OPTIONS}/>
       </StyledHomePage>
     </Layout>
