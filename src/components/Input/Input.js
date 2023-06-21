@@ -13,12 +13,9 @@ function Input({
 
   const [isValid, setIsValid] = useState(true);
 
-  const handleOnChange = (event) => {
+  const handleOnChange = async (event) => {
     onChange(event);
-
-    if (type === "date") {
-      validateValue(event);
-    }
+    await validateValue(event);
   };
 
   const validateValue = async (event) => {
@@ -35,12 +32,8 @@ function Input({
     onValidate({name, isValidValue});
   };
 
-  const handleOnBlur = async (event) => {
-    await validateValue(event);
-  };
-
   return (<>
-    <StyledInput isvalid={isValid} {...props} type={type} onChange={handleOnChange} onBlur={handleOnBlur} />
+    <StyledInput isvalid={isValid} {...props} type={type} onChange={handleOnChange} />
     {!isValid ? <StyledErrorMessage>{errorMessage ? errorMessage : `${ props.name } no válido!`}</StyledErrorMessage> : null}
   </>);
 };

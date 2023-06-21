@@ -14,7 +14,7 @@ const ProductPage = ({ props }) => {
   const dispatch = useDispatch();
   const { selectedProduct, isEditing, formValidations } = useSelector((state) => state.product);
 
-  useEffect(() => {
+  const validateStatus = () => {
     const inputValidationStatus = Object.values(formValidations)
     for (let inputName in inputValidationStatus) {
       if (!inputValidationStatus[inputName]) {
@@ -23,6 +23,11 @@ const ProductPage = ({ props }) => {
       }
     }
     setIsFormValid(true);
+
+  };
+
+  useEffect(() => {
+    validateStatus();
   }, [formValidations]);
 
   const FIELDS = [{
@@ -109,6 +114,7 @@ const ProductPage = ({ props }) => {
       // TODO: Search by ID
       console.log("Fetch data for ", id)
     }
+    validateStatus();
   }, [id]);
 
   const handleOnChange = (event) => {
