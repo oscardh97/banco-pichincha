@@ -3,9 +3,10 @@ function Button({
   text,
   onClick,
   className,
+  ...props
 }) {
 
-  return <StyledButton className={className} onClick={onClick}>
+  return <StyledButton className={className} onClick={onClick} {...props}>
     {text}
   </StyledButton>
 };

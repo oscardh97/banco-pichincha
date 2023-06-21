@@ -6,13 +6,15 @@ const BASE_URL = "https://tribu-ti-staffing-desarrollo-afangwbmcrhucqfh.z01.azur
 const PRODUCTS_URL = "bp/products";
 const AUTHOR_ID = process.env.REACT_APP_AUTH_ID;
 
-export const getProducts = createAsyncThunk('product/getProducts', async () => {
+export const updateProduct = createAsyncThunk('product/updateProduct', async (product) => {
   try {
-    const { data } = await axios.get(`${BASE_URL}/${PRODUCTS_URL}`, {
+    const { data } = await axios.put(`${BASE_URL}/${PRODUCTS_URL}`,
+    product,
+    {
       headers: {
         authorId: AUTHOR_ID,
       },
-      withCredentials: false
+      withCredentials: false,
     });
     return data;
   } catch (error) {

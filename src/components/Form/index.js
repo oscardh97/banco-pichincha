@@ -10,11 +10,12 @@ function Form({
   buttons,
   values,
   onChange,
+  onValidate,
 }) {
   const handleOnSubmit = () => onSubmit();
   return <StyledForm className={className} onSubmit={handleOnSubmit}>
     <FormHeader text={title} />
-    <FormBody fields={fields} values={values} onChange={onChange}/>
+    <FormBody fields={fields} values={values} onChange={onChange} onValidate={onValidate}/>
     <FormFooter buttons={buttons}/>
   </StyledForm>
 };

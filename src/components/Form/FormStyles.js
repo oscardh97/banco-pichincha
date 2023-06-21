@@ -23,12 +23,13 @@ export const StyledFormBody = styled.div`
     label, input {
       display: block;
       width: 90%;
-      padding: 10px 0px;
+      padding: 10px;
     }
   }
 `;
 
 export const StyledFormFooter = styled.div`
+  text-align: center;
 `;
 
 export default StyledForm;

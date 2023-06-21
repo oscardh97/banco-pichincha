@@ -37,8 +37,9 @@ function Table({
     return <td key={`${header.key}-${item.id}`}>{value}</td>;
   };
 
-  const ActionsDropdown = ({ item }) => {
+  const ActionsDropdown = ({ item }, index) => {
     return <Dropdown
+      key={`action-${index}`}
       className="table-actions"
       options={actions.map(action => {
         return {
@@ -53,7 +54,7 @@ function Table({
 
   const renderData = () => {
     return <tbody>
-      {data.map(item => {
+      {data.map((item, index) => {
         const jsxData = headers.map((header) => (
           parseRowData(header, item)
         ));
@@ -61,7 +62,7 @@ function Table({
           {<ActionsDropdown item={item}/>}
         </td>)
 
-        return <tr>{jsxData}</tr>;
+        return <tr key={`row-${index}`}>{jsxData}</tr>;
       })}
     </tbody>
   };

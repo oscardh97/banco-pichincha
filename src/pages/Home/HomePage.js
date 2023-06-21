@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { getProducts } from "../../store/product/actions/list";
 import { useNavigate } from "react-router-dom";
 import productSlice from "../../store/product/product";
+import { deleteProduct } from "../../store/product/actions/delete";
 
 //TODO: Mock Data just for testing...
 const HEADERS = [{
@@ -55,9 +56,12 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(getProducts());
-  }, []);
+  }, [productState.deleteProductStatus.success]);
 
-  const handleOnAddClick = () => navigate("/producto");
+  const handleOnAddClick = () => {
+    dispatch(productSlice.actions.resetSelectedProduct());
+    navigate("/producto")
+  };
 
   const actions= [{
     text: "Editar",
@@ -67,7 +71,7 @@ const HomePage = () => {
     }
   }, {
     text: "Eliminar",
-    onClick: (item) => console.log(`@Deleting... ${item.id}`)
+    onClick: (item) => dispatch(deleteProduct(item.id)),
   }];
 
   return (
