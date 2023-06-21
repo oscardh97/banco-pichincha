@@ -1,13 +1,16 @@
 import axios from 'axios';
+
+import { API_VALUES } from '../../utils/constants';
  
-// TODO: Move this to an env var
-const BASE_URL = "https://tribu-ti-staffing-desarrollo-afangwbmcrhucqfh.z01.azurefd.net/ipf-msa-productosfinancieros";
-const PRODUCTS_URL = "bp/products/verification";
-const AUTHOR_ID = process.env.REACT_APP_AUTH_ID;
+const {
+  AUTHOR_ID,
+  BASE_URL,
+  PRODUCTS_URL,
+} = API_VALUES;
 
 export const isValidId = async (id) => {
   try {
-    const { data } = await axios.get(`${BASE_URL}/${PRODUCTS_URL}`, {
+    const { data } = await axios.get(`${BASE_URL}/${PRODUCTS_URL}/verification`, {
       params: {
         id,
       },

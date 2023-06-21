@@ -4,7 +4,7 @@ const StyledInput = styled.input`
   border: 1.5px solid ${ props => props.isvalid === false ? "red" : "#b5b4b4" };
   border-radius: 5px;
   padding: 5px;
-  background-color: ${props => props.disabled ? "#b5b4b4" : "inherit"}
+  background-color: ${props => props.disabled ? "#b5b4b4" : "white"}
 `;
 
 export const StyledErrorMessage = styled.span`

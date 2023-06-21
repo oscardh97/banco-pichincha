@@ -1,4 +1,4 @@
-import Dropdown from "../Dropdown/Dropdown";
+import Dropdown from "../Dropdown";
 import StyledTable from "./TableStyle";
 
 function Table({
@@ -6,7 +6,7 @@ function Table({
   data = [],
   actions = [],
 }) {
-  // TODO: Move Headers y Body to different component
+  // TODO: Move Headers and Body to different component
   // TODO: Add Info icon
   const renderHeaders = () => {
     const jsxHeaders = headers.map(header => (

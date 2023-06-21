@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import Layout from "../../components/Layout/Layout";
+import Layout from "../../components/Layout";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "../../components/Form";
@@ -9,27 +9,32 @@ import { updateProduct } from "../../store/product/actions/update";
 import { isValidId } from "../../api/products/isValidId";
 
 const ProductPage = ({ props }) => {
-  const [isFormValid, setIsFormValid] = useState(false);
-  const { id } = useParams();
+  const { selectedProduct, isEditing, formValidations, createProductStatus } = useSelector((state) => state.product);
   const dispatch = useDispatch();
-  const { selectedProduct, isEditing, formValidations } = useSelector((state) => state.product);
+  const [isFormValid, setIsFormValid] = useState(isEditing);
 
   const validateStatus = () => {
-    const inputValidationStatus = Object.values(formValidations)
+    const inputValidationStatus = Object.values(formValidations);
     for (let inputName in inputValidationStatus) {
-      if (!inputValidationStatus[inputName]) {
+      if (inputValidationStatus[inputName] === false) {
         setIsFormValid(false);
         return;
       }
     }
     setIsFormValid(true);
-
   };
+
+  useEffect(() => {
+    if (isEditing) {
+      dispatch(productSlice.actions.setFormValid());
+    }
+  }, [isEditing, dispatch]);
 
   useEffect(() => {
     validateStatus();
   }, [formValidations]);
 
+  // Product Form Fields
   const FIELDS = [{
     id: "id",
     label: "ID",
@@ -38,6 +43,10 @@ const ProductPage = ({ props }) => {
     min: 3,
     max: 10,
     validate: async (event) => {
+      if (isEditing) {
+        return true;
+      }
+
       const { value } = event.target;
       const isAValidId = await isValidId(value);
       return !isAValidId;
@@ -76,7 +85,7 @@ const ProductPage = ({ props }) => {
     validate: (event) => {
       const { value } = event.target;
       const valueDate = new Date(value);
-      valueDate.setDate(valueDate.getDate() + 1); //TODO: Temporal fix to compare data
+      valueDate.setDate(valueDate.getDate() + 1); //TODO: Temporal fix to compare dates
       const today = new Date();
       today.setHours(0);
       today.setMinutes(0);
@@ -99,7 +108,7 @@ const ProductPage = ({ props }) => {
     },
   }, {
     text: "Enviar",
-    disabled: !isFormValid,
+    disabled: !isFormValid || createProductStatus.loading,
     onClick: () => {
       if (isEditing) {
         dispatch(updateProduct(selectedProduct));
@@ -109,13 +118,14 @@ const ProductPage = ({ props }) => {
     },
   }];
 
-  useEffect(() => {
-    if (id) {
-      // TODO: Search by ID
-      console.log("Fetch data for ", id)
-    }
-    validateStatus();
-  }, [id]);
+  // TODO: Search by ID
+  // const { id } = useParams();
+  // useEffect(() => {
+  //   if (id) {
+  //     console.log("Fetch data for ", id)
+  //   }
+  //   validateStatus();
+  // }, [id]);
 
   const handleOnChange = (event) => {
     dispatch(productSlice.actions.handleInputChange({

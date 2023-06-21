@@ -1,4 +1,4 @@
-import Input from "../Input/Input";
+import Input from "../Input";
 import { StyledFormBody } from "./FormStyles";
 
 const FormBody = ({ fields = [], values, onChange:parentOnChange, onValidate }) => {

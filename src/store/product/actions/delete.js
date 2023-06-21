@@ -1,10 +1,12 @@
 import axios from 'axios';
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { API_VALUES } from '../../../utils/constants';
  
-// TODO: Move this to an env var
-const BASE_URL = "https://tribu-ti-staffing-desarrollo-afangwbmcrhucqfh.z01.azurefd.net/ipf-msa-productosfinancieros";
-const PRODUCTS_URL = "bp/products";
-const AUTHOR_ID = process.env.REACT_APP_AUTH_ID;
+const {
+  AUTHOR_ID,
+  BASE_URL,
+  PRODUCTS_URL,
+} = API_VALUES;
 
 export const deleteProduct = createAsyncThunk('product/deleteProduct', async (id) => {
   try {
@@ -16,6 +18,6 @@ export const deleteProduct = createAsyncThunk('product/deleteProduct', async (id
     });
     return data;
   } catch (error) {
-    return error.message;
+    throw error.message;
   }
 });
