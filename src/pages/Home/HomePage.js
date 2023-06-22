@@ -70,7 +70,7 @@ const HomePage = () => {
     <Layout>
       <StyledHomePage>
         <Input placeholder="Search..." />
-        <Button className="add-btn" text="Agregar" onClick={handleOnAddClick} />
+        <Button className="btn-add" text="Agregar" onClick={handleOnAddClick} data-testid="add-btn" />
         <Table headers={HEADERS} data={productState.list} actions={actions}/>
         <span>{productState.list.length} resultados</span>
         {/* TODO: Pagination Dropdown */}

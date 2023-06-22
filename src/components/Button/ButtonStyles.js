@@ -10,6 +10,9 @@ const StyledButton = styled.button`
   color: #1B294A;
   font-weight: bolder;
   opacity: ${props => props.disabled ? "0.5" : "1"};
+  &:not(:disabled):hover {
+    opacity: 0.7;
+  }
 `;
 
 export default StyledButton;
