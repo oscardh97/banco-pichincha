@@ -25,6 +25,7 @@ describe("Input component", () => {
     render(<Input disabled data-testid="input-test" onChange={handleInputChange} />);
     const renderInput = screen.getByTestId("input-test");
 
+    expect(renderInput).toBeDisabled();
     // Type some text
     userEvent.type(renderInput, textToTest)
     expect(renderInput).toHaveValue("");

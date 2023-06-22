@@ -16,6 +16,7 @@ describe("Button component", () => {
     render(<Button disabled text="Click me!" data-testid="btn-test" />);
     const renderButton = screen.getByTestId("btn-test");
     expect(renderButton.innerHTML).toEqual("Click me!");
+    expect(renderButton).toBeDisabled();
     expect(renderButton).toHaveStyleRule("background-color", "#FFD000");
     expect(renderButton).toHaveStyleRule("opacity", "0.5");
   });
@@ -32,6 +33,7 @@ describe("Button component", () => {
     render(<Button secondary disabled text="Click me!" data-testid="btn-test" />);
     const renderButton = screen.getByTestId("btn-test");
     expect(renderButton.innerHTML).toEqual("Click me!");
+    expect(renderButton).toBeDisabled();
     expect(renderButton).toHaveStyleRule("background-color", "#d2d5dd");
     expect(renderButton).toHaveStyleRule("opacity", "0.5");
   });
@@ -52,6 +54,7 @@ describe("Button component", () => {
    render(<Button disabled text="Click me!" data-testid="btn-test" onClick={testClickFunction}/>);
    const renderButton = screen.getByTestId("btn-test");
    expect(renderButton.innerHTML).toEqual("Click me!");
+   expect(renderButton).toBeDisabled();
    expect(renderButton).toHaveStyleRule("opacity", "0.5");
 
    fireEvent.click(renderButton);
