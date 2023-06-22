@@ -37,25 +37,25 @@ describe("Button component", () => {
   });
 
   test("click button", () => {
-    let testClickVar = null;
-    render(<Button text="Click me!" data-testid="btn-test" onClick={() => testClickVar = "You clicked me!"}/>);
+    const testClickFunction = jest.fn();
+    render(<Button text="Click me!" data-testid="btn-test" onClick={testClickFunction}/>);
     const renderButton = screen.getByTestId("btn-test");
-    expect(renderButton.innerText).toEqual("Click me!");
+    expect(renderButton.innerHTML).toEqual("Click me!");
 
     fireEvent.click(renderButton);
 
-    expect(testClickVar).toEqual("You clicked me!");
+    expect(testClickFunction).toBeCalled();
   });
 
   test("a disabled button can't be clicked", () => {
-   let testClickVar = null;
-   render(<Button disabled text="Click me!" data-testid="btn-test" onClick={() => testClickVar = "You clicked me!"}/>);
+    const testClickFunction = jest.fn();
+   render(<Button disabled text="Click me!" data-testid="btn-test" onClick={testClickFunction}/>);
    const renderButton = screen.getByTestId("btn-test");
    expect(renderButton.innerHTML).toEqual("Click me!");
    expect(renderButton).toHaveStyleRule("opacity", "0.5");
 
    fireEvent.click(renderButton);
 
-   expect(testClickVar).toEqual(null);
+   expect(testClickFunction).not.toBeCalled();
   });
 });

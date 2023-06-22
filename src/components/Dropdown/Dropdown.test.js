@@ -3,18 +3,15 @@ import 'jest-styled-components'
 import Dropdown from '.';
 
 describe("Dropdown component", () => {
-  let testVarClickOption = null;
+  const editClickFunction = jest.fn();
+  const deleteClickFunction = jest.fn();
   const actions= [{
     text: "Edit",
-    onClick: () => testVarClickOption = "Clicked on Edit button",
+    onClick: editClickFunction,
   }, {
     text: "Delete",
-    onClick: () => testVarClickOption = "Clicked on Delete button",
+    onClick: deleteClickFunction,
   }];
-
-  beforeEach(() => {
-    testVarClickOption = null;
-  });
 
   test("renders basic dropdown", () => {
     render(<Dropdown showArrow={false} text="Click me!" data-testid="dw-test" options={actions}/>);
@@ -28,7 +25,7 @@ describe("Dropdown component", () => {
 
     fireEvent.click(editButton);
 
-    expect(testVarClickOption).toEqual("Clicked on Edit button");
+    expect(editClickFunction).toBeCalled();
 
     // Dropdown label should be changed to selected option button
     expect(button.innerHTML).toEqual(actions[0].text);
