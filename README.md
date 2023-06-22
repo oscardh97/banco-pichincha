@@ -2,6 +2,28 @@
 # Banco Pichincha Frontend Challenge
 React challenge for Banco Pichincha
 
+**Stach Tech**
+-
+- React
+- Reduxjs Toolkit
+- testing-library/@jest
+- styled-components
+
+**Commands**
+-
+- Install dependencies:
+ `npm install`
+- Start project:
+ `npm start`
+- Run test:
+ `npm run test`
+
+**Env Vars**
+-
+- REACT_APP_AUTHOR_ID=<Integer for API Authentication\> 
+- REACT_APP_API_BASE_URL=<API Base URL Authentication\> 
+- REACT_APP_API_PRODUCTS_URL=<URL for products API\> 
+
 **TODOs**
 - 
 - Table component
