@@ -29,15 +29,6 @@ const HEADERS = [{
   type: "date",
   label: "Fecha de reestructuración",
 }];
-// const today = new Date();
-// const DATA = [{
-//   id: "test",
-//   logo: "https://picsum.photos/200",
-//   name: "Test",
-//   description: "My Description",
-//   date_release: today,
-//   date_revision: new Date((new Date()).setFullYear(today.getFullYear() + 1)),
-// }]
 
 const HomePage = () => {
   const navigate = useNavigate();

@@ -4,8 +4,7 @@ import { StyledFormBody } from "./FormStyles";
 const FormBody = ({ fields = [], values, onChange:parentOnChange, onValidate }) => {
   const renderFields = () => (
     fields.map(({id, label, type, onChange, ...props}) => {
-      const value = values && values[id] ? type === "date" ? new Date(values[id]).toISOString().split("T")[0] : values[id] : null;
-
+      const value = values && values[id] ? type === "date" ? new Date(values[id]).toISOString().split("T")[0] : values[id] : "";
       const handleOnChange = (event) => {
         parentOnChange(event);
         if (onChange instanceof Function) {

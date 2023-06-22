@@ -34,7 +34,14 @@ function Input({
   };
 
   return (<>
-    <StyledInput data-testid={props["data-testid"] || `input-${props.id}`} isvalid={isValid ? 1 : 0} {...props} type={type} onChange={handleOnChange} />
+    <StyledInput
+      data-testid={props["data-testid"] || `input-${props.id}`}
+      isvalid={isValid ? 1 : 0}
+      value={value}
+      type={type}
+      onChange={handleOnChange}
+      {...props}
+    />
     {!isValid ? <StyledErrorMessage data-testid="input-error-msg">{errorMessage ? errorMessage : `${ props.name } no válido!`}</StyledErrorMessage> : null}
   </>);
 };

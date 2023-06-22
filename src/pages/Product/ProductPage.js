@@ -85,7 +85,7 @@ const ProductPage = ({ props }) => {
     validate: (event) => {
       const { value } = event.target;
       const valueDate = new Date(value);
-      valueDate.setDate(valueDate.getDate() + 1); //TODO: Temporal fix to compare dates
+      valueDate.setDate(valueDate.getDate() + 1); //TODO: Move all date logic to an util date file
       const today = new Date();
       today.setHours(0);
       today.setMinutes(0);
