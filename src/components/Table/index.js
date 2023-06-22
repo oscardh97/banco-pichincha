@@ -58,7 +58,7 @@ function Table({
         const jsxData = headers.map((header) => (
           parseRowData(header, item)
         ));
-        jsxData.push(<td key={`actions-${item.id}`} className="actions-column">
+        jsxData.push(<td key={`actions-${item.id}`} data-testid={`btn-actions`} className="actions-column">
           {<ActionsDropdown item={item}/>}
         </td>)
 

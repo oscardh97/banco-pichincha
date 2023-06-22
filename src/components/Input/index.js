@@ -2,6 +2,7 @@ import { useState } from "react";
 import StyledInput, { StyledErrorMessage } from "./InputStyles";
 function Input({
   type="text",
+  value="",
   onChange,
   validate,
   min,
@@ -33,7 +34,7 @@ function Input({
   };
 
   return (<>
-    <StyledInput isvalid={isValid ? 1 : 0} {...props} type={type} onChange={handleOnChange} />
+    <StyledInput data-testid={props["data-testid"] || `input-${props.id}`} isvalid={isValid ? 1 : 0} {...props} type={type} onChange={handleOnChange} />
     {!isValid ? <StyledErrorMessage data-testid="input-error-msg">{errorMessage ? errorMessage : `${ props.name } no válido!`}</StyledErrorMessage> : null}
   </>);
 };

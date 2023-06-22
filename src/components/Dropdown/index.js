@@ -16,7 +16,7 @@ function Dropdown({
   const arrowDirection = open ? "up" : "down";
 
   return <StyledDropdown className={className} data-testid={props["data-testid"] }>
-    <button onClick={handleOpen}>
+    <button onClick={handleOpen} data-testid={"dropdown-btn"}>
       {children ? children : label}
       {showArrow ? <i data-testid={`dropdown-arrow-${arrowDirection}`} className={`arrow ${arrowDirection}`}></i> : null}
     </button>
