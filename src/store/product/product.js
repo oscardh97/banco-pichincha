@@ -11,6 +11,7 @@ const initialState = {
     text: "",
   },
   list: [],
+  filteredList: [],
   listProductStatus: {
     loading: false,
     success: false,
@@ -81,11 +82,15 @@ const productSlice = createSlice({
     handleInputValidation: (state, action) => {
       state.formValidations[action.payload.name] = action.payload.isValidValue;
     },
+    filterProducts: (state, action) => {
+      state.filteredList = state.list.filter(_product => _product.name.toUpperCase().includes(action.payload.toUpperCase()));
+    },
   },
   extraReducers: {
     [getProducts.fulfilled]: (state, { payload }) => {
       state.listProductStatus.success = true;
       state.list = payload;
+      state.filteredList = payload;
     },
     [getProducts.rejected]: (state, { payload }) => {
       state.listProductStatus.success = false;

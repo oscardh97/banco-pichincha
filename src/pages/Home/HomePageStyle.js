@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledHomePage = styled.div`
-  .add-btn, .page-selector {
+  .btn-add, .page-selector {
     float: right;
   }
 `;

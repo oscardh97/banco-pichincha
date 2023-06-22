@@ -66,13 +66,15 @@ const HomePage = () => {
     },
   }];
 
+  const handleSearch = (event) => dispatch(productSlice.actions.filterProducts(event.target.value));
+
   return (
     <Layout>
       <StyledHomePage>
-        <Input placeholder="Search..." />
-        <Button className="add-btn" text="Agregar" onClick={handleOnAddClick} />
-        <Table headers={HEADERS} data={productState.list} actions={actions}/>
-        <span>{productState.list.length} resultados</span>
+        <Input placeholder="Search..." onChange={handleSearch}/>
+        <Button className="btn-add" text="Agregar" onClick={handleOnAddClick} data-testid="add-btn" />
+        <Table headers={HEADERS} data={productState.filteredList} actions={actions}/>
+        <span>{productState.filteredList.length} resultados</span>
         {/* TODO: Pagination Dropdown */}
         {/* <Dropdown className="page-selector" text="1" options={OPTIONS}/> */}
       </StyledHomePage>

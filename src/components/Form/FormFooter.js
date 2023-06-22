@@ -4,7 +4,7 @@ import { StyledFormFooter } from "./FormStyles";
 const FormFooter = ({ buttons = [] }) => {
   const renderButtons = () => (
     buttons.map(({text, onClick, ...props}, index) => (
-      <Button key={`footer-btn-${index}`} text={text} onClick={onClick} {...props}/>
+      <Button key={`btn-footer-${index}`} data-testid={`btn-footer-${index}`} text={text} onClick={onClick} {...props}/>
     ))
   );
   return (<StyledFormFooter>
