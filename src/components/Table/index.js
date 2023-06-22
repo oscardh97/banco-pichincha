@@ -25,11 +25,10 @@ function Table({
   };
 
   const parseRowData = (header, item) => {
-    // TODO: move this to an util function
     let value = item[header.key];
     if (header.type === "date") {
       value = new Date(value);
-      value = `${value.getDate()}/${value.getMonth() + 1}/${value.getFullYear()}`;
+      value = `${value.getUTCDate()}/${value.getUTCMonth() + 1}/${value.getUTCFullYear()}`;
     } else if (header.type === "image") {
       value = <img alt="logo" src={item[header.key]} />;
     }
